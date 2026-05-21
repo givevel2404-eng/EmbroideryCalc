@@ -20,7 +20,7 @@ with col1:
 
     width_cm = st.number_input(
         "Ширина (см)",
-        min_value=1.0,
+        min_value=0.5,
         value=10.0
     )
 
@@ -28,7 +28,7 @@ with col2:
 
     height_cm = st.number_input(
         "Высота (см)",
-        min_value=1.0,
+        min_value=0.5,
         value=10.0
     )
 
@@ -45,7 +45,6 @@ emb_type = st.selectbox(
         "Стандартная",
         "Мелкий текст и тонкие линии",
         "Плотное заполнение",
-        "Шеврон",
         "3D"
     ]
 )
@@ -60,9 +59,6 @@ st.info(
 
 Плотное заполнение:
 плашки, большие заливки
-
-Шеврон:
-нашивки, плотная заливка + рамка
 
 3D:
 объемная вышивка
@@ -94,24 +90,21 @@ if uploaded:
 
     real_area = area * fill_percent
 
-    base_density = 300
+    base_density = 250
 
     if emb_type == "Плотное заполнение":
         base_density = 360
 
-    elif emb_type == "Шеврон":
-        base_density = 420
-
     elif emb_type == "3D":
-        base_density = 520
+        base_density = 480
 
     stitches = real_area * base_density
 
     if emb_type == "Мелкий текст и тонкие линии":
-        stitches *= 1.15
+        stitches *= 1.2
 
-    min_st = stitches * 0.9
-    max_st = stitches * 1.1
+    min_st = stitches * 0.95
+    max_st = stitches * 1.05
 
     prep_time = 5
 
@@ -129,10 +122,6 @@ if uploaded:
 
     st.write(
         f"Заполненность: {fill_percent*100:.1f}%"
-    )
-
-    st.write(
-        f"Фактическая площадь: {real_area:.1f} см²"
     )
 
     st.write(
