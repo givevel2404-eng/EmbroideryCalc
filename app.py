@@ -9,6 +9,19 @@ st.set_page_config(
 
 st.title("Калькулятор вышивки")
 
+APP_PASSWORD = st.secrets["app_password"]
+
+password = st.text_input(
+    "Введите пароль для доступа",
+    type="password"
+)
+
+if password != APP_PASSWORD:
+    st.warning(
+        "Введите пароль для доступа"
+    )
+    st.stop()
+
 st.info(
 """
 Инструкция по пользованию
